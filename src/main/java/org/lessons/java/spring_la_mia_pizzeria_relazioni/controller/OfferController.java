@@ -40,13 +40,21 @@ public class OfferController {
     }
 
     @PostMapping("/edit-offer/{id}")
-    public String update(@Valid @ModelAttribute("offer") Offer updateOffer, BindingResult bindingResult, Model model){
+    public String update(@Valid @PathVariable("id") Integer id, @ModelAttribute("offer") Offer updateOffer, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()) {
             return "offers/edit-offer";
         }
-
+        Offer offer = offerService.getById(id);
+        Integer pizzaId = offer.getPizza().getId();
         offerService.updateOffer(updateOffer);
-        return "redirect:/homepage";
+        return "redirect:/homepage/" + pizzaId;
     }
 
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id, Model model){
+        Offer offer = offerService.getById(id);
+        Integer pizzaId = offer.getPizza().getId();
+        offerService.delete(offer);
+        return "redirect:/homepage/" + pizzaId;
+    }
 }
