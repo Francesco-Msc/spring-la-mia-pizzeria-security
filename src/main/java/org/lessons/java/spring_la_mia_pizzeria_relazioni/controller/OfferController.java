@@ -40,9 +40,10 @@ public class OfferController {
     }
 
     @PostMapping("/edit-offer/{id}")
-    public String update(@Valid @PathVariable("id") Integer id, @ModelAttribute("offer") Offer updateOffer, BindingResult bindingResult, Model model){
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("offer") Offer updateOffer, BindingResult bindingResult, Model model){
+        offerService.validateOfferDates(updateOffer, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "offers/edit-offer";
+            return "offers/create-edit-offer";
         }
         Offer offer = offerService.getById(id);
         Integer pizzaId = offer.getPizza().getId();
