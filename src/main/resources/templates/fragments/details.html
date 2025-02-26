@@ -6,9 +6,27 @@
                 <img class="detail-img" th:src="${pizza.photo}" alt="immagine_pizza">
             </div>
             <div class="card-body">
-              <h5 class="card-title" th:text="${pizza.name}"></h5>
-              <p class="card-text" th:text="${pizza.description}"></p>
-              <a th:href="@{/homepage}" class="btn btn-primary">Go back</a>
+                <h5 class="card-title" th:text="${pizza.name}"></h5>
+                <p class="card-text" th:text="${pizza.description}"></p>
+                <div th:if="${pizza.offers != null and #lists.size(pizza.offers) > 0}">
+                    <table class="table my-3 border shadow p-3 mb-5 bg-body-tertiary rounded">
+                        <thead>
+                            <tr>
+                                <th>Offer name</th>
+                                <th>Starting date</th>
+                                <th>Ending date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="offer : ${pizza.offers}" th:object="${offer}">
+                                <td th:text="*{title}"></td>
+                                <td th:text="*{startDate}"></td>
+                                <td th:text="*{endDate}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a th:href="@{/homepage}" class="btn btn-primary">Go back</a>
             </div>
         </div>
     </div>
