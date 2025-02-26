@@ -23,4 +23,7 @@ public class OfferService {
         return offerRepo.save(updateOffer);
     }
 
+    public void delete(Offer offer){
+        offerRepo.delete(offer);
+    }
 }
