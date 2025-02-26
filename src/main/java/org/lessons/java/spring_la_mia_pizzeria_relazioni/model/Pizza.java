@@ -1,11 +1,14 @@
 package org.lessons.java.spring_la_mia_pizzeria_relazioni.model;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -33,6 +36,16 @@ public class Pizza {
     @Min(value = 0, message = "The pizza price cannot be negative")
     private double price;
 
+    @OneToMany ( mappedBy = "pizza" )
+    private Set<Offer> offers;
+
+    public Set<Offer> getOffers() {
+        return this.offers;
+    }
+
+    public void setOffers(Set<Offer> offers) {
+        this.offers = offers;
+    }
 
     public Integer getId() {
         return this.id;

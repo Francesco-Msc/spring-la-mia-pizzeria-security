@@ -18,7 +18,7 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/homepage")
-public class PizzeController {
+public class PizzaController {
 
     @Autowired
     private PizzaService pizzaService;
