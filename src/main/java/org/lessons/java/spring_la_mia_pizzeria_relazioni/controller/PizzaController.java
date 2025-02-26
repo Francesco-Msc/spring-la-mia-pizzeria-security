@@ -1,6 +1,9 @@
 package org.lessons.java.spring_la_mia_pizzeria_relazioni.controller;
 
 
+import java.time.LocalDate;
+
+import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Offer;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,5 +88,15 @@ public class PizzaController {
     public String delete(@PathVariable("id") Integer id, Model model){
         pizzaService.delete(pizzaService.getById(id));;
         return "redirect:/homepage";
+    }
+
+    @GetMapping("/{id}/offer")
+    public String offer(@PathVariable Integer id, Model model){
+        Offer offer = new Offer();
+        offer.setPizza(pizzaService.getById(id));
+        offer.setStartDate(LocalDate.now());
+        model.addAttribute("offer", offer);
+        model.addAttribute("create", true);
+        return "offers/create-edit-offer";
     }
 }
