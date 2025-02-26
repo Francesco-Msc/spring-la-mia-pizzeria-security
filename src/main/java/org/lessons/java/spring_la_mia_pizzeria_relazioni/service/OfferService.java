@@ -14,4 +14,13 @@ public class OfferService {
     public Offer create(Offer addOffer){
         return offerRepo.save(addOffer);
     }
+
+    public Offer getById(Integer id){
+        return offerRepo.findById(id).get();
+    }
+
+    public Offer updateOffer(Offer updateOffer){
+        return offerRepo.save(updateOffer);
+    }
+
 }
