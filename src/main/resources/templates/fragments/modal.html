@@ -1,0 +1,33 @@
+<!-- Button trigger modal -->
+<th:block th:fragment="modal-btn" th:object="${pizza}">
+    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+        th:data-bs-target="'#delete-modal-' + *{id}">
+        Delete
+    </button>
+</th:block>
+
+<!-- Modal body -->
+<th:block th:fragment="modal-body">
+    <div class="modal fade" th:id="'delete-modal-' + *{id}" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting "[[*{name}]]"</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to <strong class="fw-bold">delete permanently</strong> "[[*{name}]]"?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close</button>
+                <form th:action="@{/homepage/delete/{id}(id=*{id})}" method="post">
+                    <input type="submit" class="btn btn-danger text-decoration-none" value="Delete"
+                        \>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>

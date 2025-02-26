@@ -1,0 +1,18 @@
+<th:block th:fragment="navbar">
+  <nav class="p-0 navbar bg-dark bg-gradient">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/homepage}">
+        <img th:src="@{/img/pizza_logo.png}" alt="Logo" width="90" class="zoom-object d-inline-block align-text-top">
+      </a>
+      <div class="d-flex">
+        <form th:action="@{/homepage/search}" method="get" class="d-flex me-5" role="search">
+          <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <a class="me-3 d-flex align-items-center btn btn-light" th:href="@{/homepage/cart}">
+          <i class="fa-solid fa-cart-shopping zoom-object"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+</th:block>

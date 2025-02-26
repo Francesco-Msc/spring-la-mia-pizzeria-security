@@ -1,0 +1,46 @@
+<th:block th:fragment="form">
+    <div class="container shadow p-3 mt-5 bg-white border rounded">
+        <h3 th:if="${create}" class="text-center mt-3">Add a Pizza</h3>
+        <h3 th:unless="${create}" class="text-center mt-3">Editing "[[${pizza.name}]]"</h3>
+    
+        <form th:action="${create} ? @{/homepage/create-edit} : @{|/homepage/create-edit/${pizza.id}|}" method="post" th:object="${pizza}">
+            <div class="mb-3">
+                <label for="name" class="form-label">Pizza name</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}" th:errorClass="is-invalid">
+    
+                <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('name')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Ingredients</label>
+                <input type="text" class="form-control" id="description" th:field="*{description}" th:errorClass="is-invalid">
+    
+                <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('description')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" step="0.01" min="0" class="form-control" id="price" th:field="*{price}" th:errorClass="is-invalid">
+    
+                <div th:if="${#fields.hasErrors('price')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('price')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="photo_url" class="form-label">Photo url</label>
+                <textarea name="photo" class="form-control" id="photo_url" th:field="*{photo}"></textarea>
+            </div>
+            <div class="d-flex justify-content-center">
+                <input type="submit" value="Save" class="px-4 btn btn-primary my-2"></input>
+            </div>
+        </form>
+    </div>
+</th:block>

@@ -1,0 +1,41 @@
+body{
+    background-image: url('/img/bg_img.png');
+    background-size: auto;
+    background-repeat: repeat;
+    background-position: top center;
+    background-attachment: fixed;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+table{
+    position: relative;
+    z-index: 1;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid #06060695;
+    overflow: hidden;
+}
+
+.detail-img {
+    width: auto;
+    height: 250px;
+}
+
+.zoom-object{
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.zoom-object:hover, a:hover .zoom-object{
+    transform: scale(1.13);
+}
