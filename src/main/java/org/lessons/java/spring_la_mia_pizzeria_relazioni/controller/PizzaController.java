@@ -90,7 +90,7 @@ public class PizzaController {
         return "redirect:/homepage";
     }
 
-    @GetMapping("/{id}/offer")
+    @GetMapping("/offer/{id}")
     public String offer(@PathVariable Integer id, Model model){
         Offer offer = new Offer();
         offer.setPizza(pizzaService.getById(id));

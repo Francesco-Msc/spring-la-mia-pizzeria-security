@@ -10,6 +10,7 @@
                     <th>Ingredients</th>
                     <th class="text-center">Price</th>
                     <th class="text-center">See details</th>
+                    <th class="text-center">Offer</th>
                     <th class="text-center">Edit</th>
                     <th class="text-center">Delete</th>
                 </tr>
@@ -19,20 +20,27 @@
                     <td th:text="*{name}"></td>
                     <td th:text="*{description}"></td>
                     <td class="text-center" th:text="|*{price} €|"></td>
+                    <!-- see details -->
                     <td class="text-center">
                         <a th:href="@{/homepage/{id}(id=*{id})}">
                             <i class="fa-solid fa-link"></i>
                         </a>
                     </td>
+                    <!-- offer -->
+                    <td class="text-center">
+                        <a th:href="@{/homepage/offer/{id}(id=*{id})}"
+                                class="btn btn-sm btn-primary text-decoration-none">Offer</a>
+                    </td>
+                    <!-- edit -->
                     <td class="text-center">
                         <a th:href="@{/homepage/create-edit/{id}(id=*{id})}"
                             class="btn btn-sm btn-warning text-decoration-none">Edit</a>
                     </td>
+                    <!-- delete modal -->
                     <td class="text-center">
                         <th:block th:replace="~{fragments/modal :: modal-btn}" \>
                     </td>
                     <th:block th:replace="~{fragments/modal :: modal-body}" \>
-                </div>
                 </tr>
             </tbody>
         </table>
