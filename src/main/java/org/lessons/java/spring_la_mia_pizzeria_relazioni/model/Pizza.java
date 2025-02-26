@@ -1,6 +1,6 @@
 package org.lessons.java.spring_la_mia_pizzeria_relazioni.model;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,13 +37,13 @@ public class Pizza {
     private double price;
 
     @OneToMany ( mappedBy = "pizza" )
-    private Set<Offer> offers;
+    private List<Offer> offers;
 
-    public Set<Offer> getOffers() {
+    public List<Offer> getOffers() {
         return this.offers;
     }
 
-    public void setOffers(Set<Offer> offers) {
+    public void setOffers(List<Offer> offers) {
         this.offers = offers;
     }
 
