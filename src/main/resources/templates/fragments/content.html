@@ -3,6 +3,7 @@
         <div class="d-flex justify-content-end">
             <a th:href="@{/homepage/create-edit}" class="btn btn-primary mt-3">Add a Pizza</a>
         </div>
+        <!-- Aggiungere redirect attribute campo con possibilità di chiuderlo -->
         <table class="table my-3 border shadow p-3 mb-5 bg-body-tertiary rounded" th:if="${pizze.size() > 0}">
             <thead>
                 <tr>
@@ -29,7 +30,7 @@
                     <!-- offer -->
                     <td class="text-center">
                         <a th:href="@{/homepage/offer/{id}(id=*{id})}"
-                                class="btn btn-sm btn-primary text-decoration-none">Offer</a>
+                            class="btn btn-sm btn-primary text-decoration-none">Offer</a>
                     </td>
                     <!-- edit -->
                     <td class="text-center">
@@ -37,10 +38,40 @@
                             class="btn btn-sm btn-warning text-decoration-none">Edit</a>
                     </td>
                     <!-- delete modal -->
-                    <td class="text-center">
-                        <th:block th:replace="~{fragments/modal :: modal-btn}" \>
+                    <td class="text-center" th:object="${pizza}">
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                            th:data-bs-target="'#delete-modal-' + *{id}">
+                            Delete
+                        </button>
                     </td>
-                    <th:block th:replace="~{fragments/modal :: modal-body}" \>
+                    <div class="modal fade" th:id="'delete-modal-' + *{id}" data-bs-keyboard="false" tabindex="-1"
+                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting "[[*{name}]]"</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" th:if="${pizza.offers != null and #lists.size(pizza.offers) > 0}">
+                                    Are you sure you want to <strong class="fw-bold">delete permanently</strong>
+                                    "[[*{name}]]" and its offers?
+                                </div>
+                                <div class="modal-body" th:unless="${pizza.offers != null and #lists.size(pizza.offers) > 0}">
+                                    Are you sure you want to <strong class="fw-bold">delete permanently</strong>
+                                    "[[*{name}]]"?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <form th:action="@{/homepage/delete/{id}(id=*{id})}" method="post">
+                                        <input type="submit" class="btn btn-danger text-decoration-none" value="Delete"
+                                            \>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </tr>
             </tbody>
         </table>
