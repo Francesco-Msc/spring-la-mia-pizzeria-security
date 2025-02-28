@@ -2,7 +2,9 @@ package org.lessons.java.spring_la_mia_pizzeria_relazioni.service;
 
 import java.util.List;
 
+import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Offer;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_relazioni.repository.OfferRepository;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ public class PizzaService {
     
     @Autowired
     private PizzaRepository pizzaRepo;
+
+    @Autowired
+    private OfferRepository offerRepo;
 
     public List<Pizza> findAll(){
         return pizzaRepo.findAll();
@@ -34,6 +39,9 @@ public class PizzaService {
     }
 
     public void delete(Pizza pizza){
+        for (Offer offer : pizza.getOffers()) {
+            offerRepo.delete(offer);
+        }
         pizzaRepo.delete(pizza);
     }
 }
