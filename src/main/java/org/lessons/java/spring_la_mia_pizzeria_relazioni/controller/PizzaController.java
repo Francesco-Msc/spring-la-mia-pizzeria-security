@@ -43,11 +43,6 @@ public class PizzaController {
         model.addAttribute("pizze", pizzaService.findByQuery(query));
         return "homepage/index";
     }
-
-    @GetMapping("/cart")
-    public String cart(Model model){
-        return "homepage/cart";
-    }
     
     @GetMapping("/create-edit")
     public String create(Model model){
