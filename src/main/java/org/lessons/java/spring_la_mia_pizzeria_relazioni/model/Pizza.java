@@ -28,7 +28,6 @@ public class Pizza {
     @NotBlank(message = "The pizza must have a name")
     private String name;
 
-    @NotBlank(message = "The pizza must have a description (ingredients)")
     private String description;
 
     @Lob
@@ -49,6 +48,14 @@ public class Pizza {
         inverseJoinColumns = @JoinColumn(name = "Ingredient_id")
     )
     private List<Ingredient> ingredients;
+
+    public List<Ingredient> getIngredients() {
+        return this.ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public List<Offer> getOffers() {
         return this.offers;

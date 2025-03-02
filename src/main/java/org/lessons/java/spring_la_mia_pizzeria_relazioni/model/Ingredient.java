@@ -24,6 +24,14 @@ public class Ingredient {
     @ManyToMany(mappedBy = "ingredients")
     private List<Pizza> pizzas;
 
+    public List<Pizza> getPizzas() {
+        return this.pizzas;
+    }
+
+    public void setPizzas(List<Pizza> pizzas) {
+        this.pizzas = pizzas;
+    }
+
     public Integer getId() {
         return this.id;
     }
@@ -38,6 +46,11 @@ public class Ingredient {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 
 }
