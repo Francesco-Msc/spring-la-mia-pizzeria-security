@@ -29,7 +29,9 @@
                 <tbody>
                     <tr th:each="pizza : ${pizze}" th:object="${pizza}">
                         <td th:text="*{name}"></td>
-                        <td th:text="*{description}"></td>
+                        <td>
+                            <span th:each="ingredient : ${pizza.ingredients}" th:text="${ingredient.name + ' '}"></span>
+                        </td>
                         <td class="text-center" th:text="|*{price} €|"></td>
                         <!-- see details -->
                         <td class="text-center">
