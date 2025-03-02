@@ -9,7 +9,78 @@
         <th:block th:replace="~{fragments/navbar :: navbar}" \>
     </header>
     <main>
-        <th:block th:replace="~{fragments/details :: detail}" \>
+        <div class="mt-5 container">
+            <div class="card text-center" th:each="pizza : ${pizze}">
+                <div class="card-header">Dettagli sulla pizza</div>
+                <div class="mt-4">
+                    <img class="detail-img" th:src="${pizza.photo}" alt="immagine_pizza">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${pizza.name}"></h5>
+                    <p class="card-text" th:text="${pizza.description}"></p>
+                    <div th:if="${pizza.offers != null and #lists.size(pizza.offers) > 0}">
+                        <table class="table my-3 border shadow p-3 mb-5 bg-body-tertiary rounded">
+                            <thead>
+                                <tr>
+                                    <th>Offer name</th>
+                                    <th>Starting date</th>
+                                    <th>Ending date</th>
+                                    <th>Edit offer</th>
+                                    <th>Delete offer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="offer : ${pizza.offers}" th:object="${offer}">
+                                    <td th:text="*{title}"></td>
+                                    <td th:text="*{startDate}"></td>
+                                    <td th:text="*{endDate}"></td>
+                                    <!-- offers edit -->
+                                    <td>
+                                        <a th:href="@{/offers/edit-offer/{id}(id=*{id})}"
+                                            class="btn btn-sm btn-warning text-decoration-none">Edit</a>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                            th:data-bs-target="'#delete-modal-' + *{id}">
+                                            Delete
+                                        </button>
+                                    </td>
+                                    <!-- offers delete modal -->
+                                    <div class="modal fade" th:id="'delete-modal-' + *{id}" data-bs-keyboard="false"
+                                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting
+                                                        "[[*{title}]]"</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to <strong class="fw-bold">delete
+                                                        permanently</strong>
+                                                    "[[*{title}]]"?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <form th:action="@{/offers/delete/{id}(id=*{id})}" method="post">
+                                                        <input type="submit"
+                                                            class="btn btn-sm btn-danger text-decoration-none"
+                                                            value="Delete" \>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a th:href="@{/homepage}" class="btn btn-primary">Go back</a>
+                </div>
+            </div>
+        </div>
     </main>
     <th:block th:replace="~{fragments/head-script :: scripts}" \>
 </body>

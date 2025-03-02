@@ -9,7 +9,87 @@
         <th:block th:replace="~{fragments/navbar :: navbar}" \>
     </header>
     <main>
-        <th:block th:replace="~{fragments/content :: content}" \>
+        <div class="container">
+            <div class="d-flex justify-content-end">
+                <a th:href="@{/homepage/create-edit}" class="btn btn-primary mt-3">Add a Pizza</a>
+            </div>
+            <!-- Aggiungere redirect attribute campo con possibilità di chiuderlo -->
+            <table class="table my-3 border shadow p-3 mb-5 bg-body-tertiary rounded" th:if="${pizze.size() > 0}">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Ingredients</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">See details</th>
+                        <th class="text-center">Offer</th>
+                        <th class="text-center">Edit</th>
+                        <th class="text-center">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pizza : ${pizze}" th:object="${pizza}">
+                        <td th:text="*{name}"></td>
+                        <td th:text="*{description}"></td>
+                        <td class="text-center" th:text="|*{price} €|"></td>
+                        <!-- see details -->
+                        <td class="text-center">
+                            <a th:href="@{/homepage/{id}(id=*{id})}">
+                                <i class="fa-solid fa-link"></i>
+                            </a>
+                        </td>
+                        <!-- offer -->
+                        <td class="text-center">
+                            <a th:href="@{/homepage/offer/{id}(id=*{id})}"
+                                class="btn btn-sm btn-primary text-decoration-none">Offer</a>
+                        </td>
+                        <!-- edit -->
+                        <td class="text-center">
+                            <a th:href="@{/homepage/create-edit/{id}(id=*{id})}"
+                                class="btn btn-sm btn-warning text-decoration-none">Edit</a>
+                        </td>
+                        <!-- delete modal -->
+                        <td class="text-center" th:object="${pizza}">
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                th:data-bs-target="'#delete-modal-' + *{id}">
+                                Delete
+                            </button>
+                        </td>
+                        <div class="modal fade" th:id="'delete-modal-' + *{id}" data-bs-keyboard="false" tabindex="-1"
+                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting "[[*{name}]]"</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" th:if="${pizza.offers != null and #lists.size(pizza.offers) > 0}">
+                                        Are you sure you want to <strong class="fw-bold">delete permanently</strong>
+                                        "[[*{name}]]" and its offers?
+                                    </div>
+                                    <div class="modal-body" th:unless="${pizza.offers != null and #lists.size(pizza.offers) > 0}">
+                                        Are you sure you want to <strong class="fw-bold">delete permanently</strong>
+                                        "[[*{name}]]"?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <form th:action="@{/homepage/delete/{id}(id=*{id})}" method="post">
+                                            <input type="submit" class="btn btn-danger text-decoration-none" value="Delete"
+                                                \>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+                </tbody>
+            </table>
+            <div th:unless="${pizze.size() > 0}" class="container alert alert-warning mt-5 text-center" role="alert">
+                <h2>There are no pizzas available</h2>
+                <a th:href="@{/homepage}" class="btn btn-primary mt-3" role="button">Homepage</a>
+            </div>
+        </div>
     </main>
     <th:block th:replace="~{fragments/head-script :: scripts}" \>
 </body>
