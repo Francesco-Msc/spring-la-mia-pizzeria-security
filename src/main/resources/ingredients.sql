@@ -1,0 +1,2 @@
+-- Inserimento degli ingredienti
+INSERT INTO ingredients (name) VALUES ('Pomodoro'),('Mozzarella'),('Basilico'),('Aglio'),('Origano'),('Salame piccante'),('Formaggio'),('Prosciutto cotto'),('Funghi'),('Olive'),('Acciughe'),('Capperi'),('Peperoni'),('Pancetta'),('Salsiccia'),('Ananas'),('Frutti di mare'),('Tartufo');
