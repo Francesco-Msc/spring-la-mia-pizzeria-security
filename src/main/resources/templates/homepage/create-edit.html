@@ -24,8 +24,13 @@
                         </ul>
                     </div>
                 </div>
+                <div class="mb-3" th:each="ingredient : ${ingredients}">
+                    <input type="checkbox" class="form-check-input" th:id="'ingredient-'+${ingredient.id}" th:field="${pizza.ingredients}" th:value="${ingredient.id}">
+                    <label th:for="'ingredient-'+${ingredient.id}" th:text="${ingredient.name}" class="form-check-label"></label>
+                    
+                </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Ingredients</label>
+                    <label for="description" class="form-label">Description</label>
                     <input type="text" class="form-control" id="description" th:field="*{description}" th:errorClass="is-invalid">
         
                     <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
