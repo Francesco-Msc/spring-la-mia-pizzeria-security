@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Offer;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_relazioni.service.IngredientService;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,9 @@ public class PizzaController {
 
     @Autowired
     private PizzaService pizzaService;
+
+    @Autowired
+    private IngredientService ingredientService;
     
     @GetMapping
     public String homepage(Model model){
@@ -48,6 +52,7 @@ public class PizzaController {
     public String create(Model model){
         model.addAttribute("pizza", new Pizza());
         model.addAttribute("create", true);
+        model.addAttribute("ingredients", ingredientService.findAll());
         return "homepage/create-edit";
     }
 
@@ -56,6 +61,7 @@ public class PizzaController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("create", true);
+            model.addAttribute("ingredients", ingredientService.findAll());
             return "homepage/create-edit";
         }
 
@@ -66,12 +72,14 @@ public class PizzaController {
     @GetMapping("/create-edit/{id}")
     public String edit(@PathVariable("id") Integer id ,Model model){
         model.addAttribute("pizza", pizzaService.getById(id));
+        model.addAttribute("ingredients", ingredientService.findAll());
         return "homepage/create-edit";
     }
 
     @PostMapping("/create-edit/{id}")
     public String update(@Valid @ModelAttribute("pizza") Pizza updatePizza, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredients", ingredientService.findAll());
             return "homepage/create-edit";
         }
 
