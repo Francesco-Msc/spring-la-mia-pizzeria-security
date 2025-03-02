@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/head-script :: head}"></th:block>
+    <title>Pizzeria</title>
+</head>
+<body>
+    <header>
+        <th:block th:replace="~{fragments/navbar :: navbar}" \>
+    </header>
+    <main>
+        <div class="container">
+            <div class="d-flex justify-content-end">
+                <a th:href="@{/ingredients/create-edit}" class="btn btn-primary mt-3">Add an ingredient</a>
+            </div>
+            <!-- Aggiungere redirect attribute campo con possibilità di chiuderlo -->
+            <table class="table my-3 border shadow p-3 mb-5 bg-body-tertiary rounded" th:if="${ingredients.size() > 0}">
+                <thead>
+                    <tr>
+                        <th>Ingredient name</th>
+                        <th class="text-center">Edit</th>
+                        <th class="text-center">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="ingredient : ${ingredients}" th:object="${ingredient}">
+                        <td th:text="*{name}"></td>
+                        <!-- edit -->
+                        <td class="text-center">
+                            <a th:href="@{/ingredients/create-edit/{id}(id=*{id})}"
+                                class="btn btn-sm btn-warning text-decoration-none">Edit</a>
+                        </td>
+                        <!-- delete modal -->
+                        <td class="text-center" th:object="${ingredient}">
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                th:data-bs-target="'#delete-modal-' + *{id}">
+                                Delete
+                            </button>
+                        </td>
+                        <div class="modal fade" th:id="'delete-modal-' + *{id}" data-bs-keyboard="false" tabindex="-1"
+                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting "[[*{name}]]"</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to <strong class="fw-bold">delete permanently</strong>
+                                        "[[*{name}]]"?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <form th:action="@{/ingredients/delete/{id}(id=*{id})}" method="post">
+                                            <input type="submit" class="btn btn-danger text-decoration-none" value="Delete"
+                                                \>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+                </tbody>
+            </table>
+            <div th:unless="${ingredients.size() > 0}" class="container alert alert-warning mt-5 text-center" role="alert">
+                <h2>There are no ingredients available</h2>
+                <a th:href="@{/homepage}" class="btn btn-primary mt-3" role="button">Homepage</a>
+            </div>
+        </div>
+    </main>
+    <th:block th:replace="~{fragments/head-script :: scripts}" \>
+</body>
+</html>

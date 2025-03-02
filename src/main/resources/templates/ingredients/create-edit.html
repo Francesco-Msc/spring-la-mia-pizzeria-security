@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/head-script :: head}"></th:block>
+    <title>Add pizza</title>
+</head>
+<body>
+    <header>
+        <th:block th:replace="~{fragments/navbar :: navbar}" \>
+    </header>
+    <main>
+        <div class="container shadow p-3 mt-5 bg-white border rounded">
+            <h3 th:if="${create}" class="text-center mt-3">Add an ingredient</h3>
+            <h3 th:unless="${create}" class="text-center mt-3">Editing "[[${ingredient.name}]]"</h3>
+        
+            <form th:action="${create} ? @{/ingredients/create-edit} : @{|/ingredients/create-edit/${ingredient.id}|}" method="post" th:object="${ingredient}">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Ingredient name</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" th:errorClass="is-invalid">
+        
+                    <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="error : ${#fields.errors('name')}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <input type="submit" value="Save" class="px-4 btn btn-primary my-2"></input>
+                </div>
+            </form>
+        </div>
+    </main>
+    <th:block th:replace="~{fragments/head-script :: scripts}" \>
+</body>
+</html>
