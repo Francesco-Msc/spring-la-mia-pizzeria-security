@@ -27,7 +27,7 @@ public class PizzaService {
     }
 
     public List<Pizza> findByQuery(String query){
-        return pizzaRepo.findByNameContainingOrDescriptionContaining(query, query);
+        return pizzaRepo.findByQuery(query);
     }
 
     public Pizza createPizza(Pizza addPizza){
