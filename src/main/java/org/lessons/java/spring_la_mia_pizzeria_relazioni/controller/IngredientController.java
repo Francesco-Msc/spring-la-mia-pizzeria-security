@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 
-//trovare il modo di separare gli ingredienti con una virgola
-
 @Controller
 @RequestMapping("/ingredients")
 public class IngredientController {

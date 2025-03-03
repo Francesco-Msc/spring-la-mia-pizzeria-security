@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
+
 <head>
     <th:block th:replace="~{fragments/head-script :: head}"></th:block>
     <title>Pizzeria</title>
 </head>
+
 <body>
     <header>
         <th:block th:replace="~{fragments/navbar :: navbar}" \>
@@ -30,7 +32,11 @@
                     <tr th:each="pizza : ${pizze}" th:object="${pizza}">
                         <td th:text="*{name}"></td>
                         <td>
-                            <span th:each="ingredient : ${pizza.ingredients}" th:text="${ingredient.name + ' '}"></span>
+                            <span th:each="ingredient, iterStat : ${pizza.ingredients}">
+                                <span th:text="${ingredient.name}"></span>
+                                <span th:if="${!iterStat.last}">, </span>
+                            </span>
+                            </span>
                         </td>
                         <td class="text-center" th:text="|*{price} €|"></td>
                         <!-- see details -->
@@ -61,15 +67,18 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting "[[*{name}]]"</h1>
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting "[[*{name}]]"
+                                        </h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body" th:if="${pizza.offers != null and #lists.size(pizza.offers) > 0}">
+                                    <div class="modal-body"
+                                        th:if="${pizza.offers != null and #lists.size(pizza.offers) > 0}">
                                         Are you sure you want to <strong class="fw-bold">delete permanently</strong>
                                         "[[*{name}]]" and its offers?
                                     </div>
-                                    <div class="modal-body" th:unless="${pizza.offers != null and #lists.size(pizza.offers) > 0}">
+                                    <div class="modal-body"
+                                        th:unless="${pizza.offers != null and #lists.size(pizza.offers) > 0}">
                                         Are you sure you want to <strong class="fw-bold">delete permanently</strong>
                                         "[[*{name}]]"?
                                     </div>
@@ -77,8 +86,8 @@
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
                                         <form th:action="@{/homepage/delete/{id}(id=*{id})}" method="post">
-                                            <input type="submit" class="btn btn-danger text-decoration-none" value="Delete"
-                                                \>
+                                            <input type="submit" class="btn btn-danger text-decoration-none"
+                                                value="Delete" \>
                                         </form>
                                     </div>
                                 </div>
@@ -95,4 +104,5 @@
     </main>
     <th:block th:replace="~{fragments/head-script :: scripts}" \>
 </body>
+
 </html>
