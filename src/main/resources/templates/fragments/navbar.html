@@ -16,10 +16,26 @@
             <a class="nav-link text-white" th:href="@{/ingredients}">Ingredients</a>
           </li>
         </ul>
-        <form th:action="@{/homepage/search}" method="get" class="d-flex me-5" role="search">
-          <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <div class="d-flex" th:if="${isHome}">
+          <div class="dropdown me-3 mt-1">
+            <a class="dropdown-toggle btn btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-filter fa-l" style="color: #ffffff;"></i>
+            </a>
+            <div class="dropdown-menu bg-body-secondary">
+              <form class="container" th:action="@{/homepage/search-price}" method="get" role="search">
+                <label for="minPrice">Min Price</label>
+                <input id="minPrice" class="d-flex my-2 form-control" name="minPrice" type="number" min="0" step="0.1">
+                <label for="maxPrice">Max Price</label>
+                <input id="maxPrice" class="d-flex my-2 form-control" name="maxPrice" type="number" min="0" step="0.1">
+                <input type="submit" value="Search" class="d-flex justify-content-end btn btn-sm btn-outline-dark">
+              </form>
+            </div>
+          </div>
+          <form th:action="@{/homepage/search}" method="get"  class="d-flex" role="search">
+            <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
       </div>
     </div>
   </nav>
