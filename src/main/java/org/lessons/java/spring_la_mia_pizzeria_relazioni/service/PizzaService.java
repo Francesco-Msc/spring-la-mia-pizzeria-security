@@ -30,6 +30,10 @@ public class PizzaService {
         return pizzaRepo.findByQuery(query);
     }
 
+    public List<Pizza> findByPriceRange(Double minPrice, Double maxprice) {
+        return pizzaRepo.findByPriceRange(minPrice, maxprice);
+    }
+
     public Pizza createPizza(Pizza addPizza){
         return pizzaRepo.save(addPizza);
     }

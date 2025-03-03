@@ -11,4 +11,7 @@ public interface PizzaRepository extends JpaRepository<Pizza, Integer> {
 
     @Query("SELECT p FROM Pizza p JOIN p.ingredients i WHERE p.name LIKE %:query% OR i.name LIKE %:query%")
     List<Pizza> findByQuery(@Param("query") String query);
+
+    @Query("SELECT p FROM Pizza p WHERE p.price BETWEEN :minPrice AND :maxPrice")
+    List<Pizza> findByPriceRange(@Param("minPrice") Double minPrice, @Param("maxPrice") Double maxPrice);
 }
