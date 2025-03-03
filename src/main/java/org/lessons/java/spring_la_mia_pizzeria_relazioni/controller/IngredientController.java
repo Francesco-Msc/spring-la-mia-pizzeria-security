@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 
+//trovare il modo di separare gli ingredienti con una virgola
+//creare metodo per far si che la ricerca possa avvenire tramite nome della pizza o per i suoi ingredienti
+
 @Controller
 @RequestMapping("/ingredients")
 public class IngredientController {
@@ -61,7 +64,7 @@ public class IngredientController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") Integer id, Model model){
-        ingredientService.delete(ingredientService.getById(id));
+        ingredientService.delete(id);
         return "redirect:/ingredients";
     }
 }
