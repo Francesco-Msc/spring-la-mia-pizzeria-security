@@ -33,6 +33,7 @@ public class PizzaController {
     @GetMapping
     public String homepage(Model model){
         model.addAttribute("pizze", pizzaService.findAll());
+        model.addAttribute("isHome", true);
         return "homepage/index";
     }
 
@@ -45,8 +46,20 @@ public class PizzaController {
     @GetMapping("/search")
     public String findByKeyword(@RequestParam(name = "query") String query, Model model){
         model.addAttribute("pizze", pizzaService.findByQuery(query));
+        model.addAttribute("isHome", true);
         return "homepage/index";
     }
+
+    @GetMapping("/search-price")
+    public String findByPrice(@RequestParam(name = "minPrice", required = false) Double minPrice, @RequestParam(name = "maxPrice", required = false) Double maxPrice, Model model) {
+        model.addAttribute("isHome", true);
+        if (((minPrice != null) && (minPrice >= 0)) && ((maxPrice != null) && (maxPrice >0))) {
+            model.addAttribute("pizze", pizzaService.findByPriceRange(minPrice, maxPrice));
+        } else {
+            model.addAttribute("pizze", pizzaService.findAll());
+        }
+    return "homepage/index";
+}
     
     @GetMapping("/create-edit")
     public String create(Model model){
