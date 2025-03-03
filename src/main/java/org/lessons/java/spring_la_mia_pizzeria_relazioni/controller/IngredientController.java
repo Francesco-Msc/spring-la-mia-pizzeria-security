@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 
 //trovare il modo di separare gli ingredienti con una virgola
-//creare metodo per far si che la ricerca possa avvenire tramite nome della pizza o per i suoi ingredienti
 
 @Controller
 @RequestMapping("/ingredients")
