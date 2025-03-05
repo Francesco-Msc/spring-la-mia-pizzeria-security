@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/homepage")
+@RequestMapping("/pizzas")
 public class PizzaController {
 
     @Autowired
@@ -79,7 +79,7 @@ public class PizzaController {
         }
 
         pizzaService.createPizza(addPizza);
-        return "redirect:/homepage";
+        return "redirect:/pizzas";
     }
 
     @GetMapping("/create-edit/{id}")
@@ -97,13 +97,13 @@ public class PizzaController {
         }
 
         pizzaService.updatePizza(updatePizza);
-        return "redirect:/homepage";
+        return "redirect:/pizzas";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") Integer id, Model model){
         pizzaService.delete(pizzaService.getById(id));;
-        return "redirect:/homepage";
+        return "redirect:/pizzas";
     }
 
     @GetMapping("/offer/{id}")

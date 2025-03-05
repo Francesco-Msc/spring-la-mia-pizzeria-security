@@ -30,7 +30,7 @@ public class OfferController {
         }
 
         offerService.create(addOffer);
-        return "redirect:/homepage";
+        return "redirect:/pizzas";
     }
 
     @GetMapping("/edit-offer/{id}")
@@ -48,7 +48,7 @@ public class OfferController {
         Offer offer = offerService.getById(id);
         Integer pizzaId = offer.getPizza().getId();
         offerService.updateOffer(updateOffer);
-        return "redirect:/homepage/" + pizzaId;
+        return "redirect:/pizzas/" + pizzaId;
     }
 
     @PostMapping("/delete/{id}")
@@ -56,6 +56,6 @@ public class OfferController {
         Offer offer = offerService.getById(id);
         Integer pizzaId = offer.getPizza().getId();
         offerService.delete(offer);
-        return "redirect:/homepage/" + pizzaId;
+        return "redirect:/pizzas/" + pizzaId;
     }
 }

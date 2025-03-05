@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class RedirectHomepage {
-    
+public class HomeController {
+
     @GetMapping("/")
     public String redirectToHomepage(){
-        return "redirect:/homepage";
+        return "redirect:/pizzas";
     }
 }

@@ -13,7 +13,7 @@
             <h3 th:if="${create}" class="text-center mt-3">Add a Pizza</h3>
             <h3 th:unless="${create}" class="text-center mt-3">Editing "[[${pizza.name}]]"</h3>
         
-            <form th:action="${create} ? @{/homepage/create-edit} : @{|/homepage/create-edit/${pizza.id}|}" method="post" th:object="${pizza}">
+            <form th:action="${create} ? @{/pizzas/create-edit} : @{|/pizzas/create-edit/${pizza.id}|}" method="post" th:object="${pizza}">
                 <div class="mb-3">
                     <label for="name" class="form-label">Pizza name:</label>
                     <input type="text" class="form-control" id="name" th:field="*{name}" th:errorClass="is-invalid">

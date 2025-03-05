@@ -1,7 +1,7 @@
 <th:block th:fragment="navbar">
   <nav class="navbar navbar-expand-lg bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" th:href="@{/homepage}">
+      <a class="navbar-brand" th:href="@{/pizzas}">
         <img th:src="@{/img/pizza_logo.png}" alt="Logo" width="90" class="zoom-object d-inline-block align-text-top">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,7 +10,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link text-white" aria-current="page"  th:href="@{/homepage}">Home</a>
+            <a class="nav-link text-white" aria-current="page"  th:href="@{/pizzas}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" th:href="@{/ingredients}">Ingredients</a>
@@ -22,7 +22,7 @@
               <i class="fa-solid fa-filter fa-l" style="color: #ffffff;"></i>
             </a>
             <div class="dropdown-menu bg-body-secondary">
-              <form class="container" th:action="@{/homepage/search-price}" method="get" role="search">
+              <form class="container" th:action="@{/pizzas/search-price}" method="get" role="search">
                 <label for="minPrice">Min Price</label>
                 <input id="minPrice" class="d-flex my-2 form-control" name="minPrice" type="number" min="0" step="0.1">
                 <label for="maxPrice">Max Price</label>
@@ -31,7 +31,7 @@
               </form>
             </div>
           </div>
-          <form th:action="@{/homepage/search}" method="get"  class="d-flex" role="search">
+          <form th:action="@{/pizzas/search}" method="get"  class="d-flex" role="search">
             <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
