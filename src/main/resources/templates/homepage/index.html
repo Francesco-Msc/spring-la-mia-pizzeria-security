@@ -13,7 +13,7 @@
     <main>
         <div class="container">
             <div class="d-flex justify-content-end">
-                <a th:href="@{/pizzas/create-edit}" class="btn btn-primary mt-3">Add a Pizza</a>
+                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/pizzas/create-edit}" class="btn btn-primary mt-3">Add a Pizza</a>
             </div>
             <!-- Aggiungere redirect attribute campo con possibilità di chiuderlo -->
             <table class="table my-3 border shadow p-3 mb-5 bg-body-tertiary rounded" th:if="${pizze.size() > 0}">
@@ -23,9 +23,9 @@
                         <th>Ingredients</th>
                         <th class="text-center">Price</th>
                         <th class="text-center">See details</th>
-                        <th class="text-center">Offer</th>
-                        <th class="text-center">Edit</th>
-                        <th class="text-center">Delete</th>
+                        <th sec:authorize="hasAuthority('ADMIN')" class="text-center">Offer</th>
+                        <th sec:authorize="hasAuthority('ADMIN')" class="text-center">Edit</th>
+                        <th sec:authorize="hasAuthority('ADMIN')" class="text-center">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,17 +46,17 @@
                             </a>
                         </td>
                         <!-- offer -->
-                        <td class="text-center">
+                        <td sec:authorize="hasAuthority('ADMIN')" class="text-center">
                             <a th:href="@{/pizzas/offer/{id}(id=*{id})}"
                                 class="btn btn-sm btn-primary text-decoration-none">Offer</a>
                         </td>
                         <!-- edit -->
-                        <td class="text-center">
+                        <td sec:authorize="hasAuthority('ADMIN')" class="text-center">
                             <a th:href="@{/pizzas/create-edit/{id}(id=*{id})}"
                                 class="btn btn-sm btn-warning text-decoration-none">Edit</a>
                         </td>
                         <!-- delete modal -->
-                        <td class="text-center" th:object="${pizza}">
+                        <td sec:authorize="hasAuthority('ADMIN')" class="text-center" th:object="${pizza}">
                             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                 th:data-bs-target="'#delete-modal-' + *{id}">
                                 Delete
