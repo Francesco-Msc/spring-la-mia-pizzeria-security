@@ -23,7 +23,11 @@ public class SecurityConfig {
                 .requestMatchers("/pizzas", "/pizzas/**").hasAnyAuthority("USER", "ADMIN")
                 .requestMatchers("/**").permitAll()
                 .and().formLogin()
-                .and().logout()
+                .and()
+                    .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login")
+                    .deleteCookies("JSESSIONID")
                 .and().exceptionHandling();
         return http.build();
     }
