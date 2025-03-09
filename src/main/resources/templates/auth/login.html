@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <th:block th:replace="~{fragments/head-script :: head}" \>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{fragments/navbar :: navbar}" \></th:block>
+    </header>
+    <main>
+        <div class="container border shadow p-3 mb-5 bg-body-tertiary rounded text-center mt-5 bg-white">
+            <h2>Login</h2>
+            <form th:action="@{/login}" method="post">
+                <div class="mb-3">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="username" name="username" aria-describedby="username" required>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary mb-3">Login</button>
+            </form>
+            <a th:href="@{/signup}">Dont have an accont yet?</a>
+        </div>
+    </main>
+    <th:block th:replace="~{fragments/head-script :: scripts}" \>
+</body>
+
+</html>
