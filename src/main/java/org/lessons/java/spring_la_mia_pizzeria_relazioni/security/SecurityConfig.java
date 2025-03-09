@@ -22,12 +22,18 @@ public class SecurityConfig {
                 .requestMatchers("/pizzas/offer/**").hasAuthority("ADMIN")
                 .requestMatchers("/pizzas", "/pizzas/**").hasAnyAuthority("USER", "ADMIN")
                 .requestMatchers("/**").permitAll()
-                .and().formLogin()
                 .and()
-                    .logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login")
-                    .deleteCookies("JSESSIONID")
+                .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/", true)
+                    .failureUrl("/login?error=true")
+                    .permitAll()
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout=true")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID") 
                 .and().exceptionHandling();
         return http.build();
     }
